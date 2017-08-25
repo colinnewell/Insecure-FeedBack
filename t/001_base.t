@@ -1,5 +1,6 @@
-use strict;
-use warnings;
+use Test2::V0;
+use Insecure::FeedBack;
 
-use Test::More tests => 1;
-use_ok 'Insecure::FeedBack';
+pass 'Loaded module';
+
+done_testing;
