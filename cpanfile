@@ -6,6 +6,6 @@ recommends "CGI::Deurl::XS"   => "0";
 recommends "HTTP::Parser::XS" => "0";
 
 on "test" => sub {
-    requires "Test::More"            => "0";
+    requires "Test2::V0"             => "0";
     requires "HTTP::Request::Common" => "0";
 };
