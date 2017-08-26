@@ -1,6 +1,7 @@
 package Insecure::FeedBack::Service::Encryption;
 
 use Moo;
+use strictures 2;
 use Crypt::CBC;
 use MIME::Base64;
 
