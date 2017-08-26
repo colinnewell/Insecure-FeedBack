@@ -41,6 +41,8 @@ for my $key (qw/key passwords.min passwords.max/)
     my $ekey = 'INSECURE_FEEDBACK_' . uc ($key =~ s/\./_/gr);
     $config->add_service(service $key => $ENV{$ekey} // $defaults{$key});
 }
+# An alernative might be to load a config file
+# and turn config sections into sub containers.
 
 no Bread::Board; # removes keywords
 
