@@ -1,3 +1,4 @@
+requires "Bread::Board" => "0";
 requires "Crypt::CBC" => "0";
 requires "Crypt::GeneratePassword" => "0";
 requires "Crypt::OpenSSL::AES" => "0";
