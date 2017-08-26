@@ -1,4 +1,6 @@
 requires "Dancer2" => "0.205001";
+requires "Crypt::CBC" => "0";
+requires "Crypt::OpenSSL::AES" => "0";
 
 recommends "YAML"             => "0";
 recommends "URL::Encode::XS"  => "0";

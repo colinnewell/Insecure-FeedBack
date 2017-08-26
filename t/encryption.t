@@ -1,9 +1,5 @@
 use Test2::V0;
 
-use Test2::Require::Module 'Crypt::CBC';
-use Test2::Require::Module 'Crypt::OpenSSL::AES';
-
-use FindBin;
 use MIME::Base64;
 use Insecure::FeedBack::Service::Encryption;
 
@@ -12,6 +8,9 @@ my $test_text = 'this is a fine bit of text to encrypt';
 my $ct = $service->encrypt($test_text);
 note $ct;
 is $service->decrypt($ct), $test_text, 'Able to round trip';
+
+# checking the same thing encrypted with the same
+# key doesn't get encrypted to the same thing again.
 isnt $service->encrypt($test_text), $ct, 'IV probably working as intended';
 
 # FIXME: check corrupt message padding results in
