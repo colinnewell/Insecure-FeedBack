@@ -5,6 +5,7 @@ requires "Crypt::OpenSSL::AES"     => "0";
 requires "Crypt::OpenSSL::AES"     => "0";
 requires "Dancer2"                 => "0.205001";
 requires "Moo"                     => "0";
+requires "Template::Alloy"         => "0";
 requires "strictures"              => "2";
 
 recommends "CGI::Deurl::XS"   => "0";
