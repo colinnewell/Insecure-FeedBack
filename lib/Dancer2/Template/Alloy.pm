@@ -7,8 +7,6 @@ use Template::Alloy;
 use Scalar::Util;
 use Dancer2::Core::Types 'InstanceOf';
 
-$DB::single = 1;
-
 extends 'Dancer2::Template::TemplateToolkit';
 
 has '+engine' => ( isa => InstanceOf ['Template::Alloy'] );

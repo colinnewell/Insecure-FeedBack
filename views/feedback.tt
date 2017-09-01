@@ -1,0 +1,11 @@
+<div id="page">
+    <h1>Feedback</h1>
+    [% IF feedback %]
+    <p>[% feedback %]</p>
+    [% END %]
+    <form method="POST">
+        <textarea name="feedback"></textarea>
+        <input type="submit" name="submit" value="Post">
+    </form>
+
+</div>
