@@ -1,8 +1,6 @@
-use strict;
-use warnings;
+use Test2::V0;
 
 use Insecure::FeedBack;
-use Test2::V0;
 use Plack::Test;
 use HTTP::Request::Common;
 
