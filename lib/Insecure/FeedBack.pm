@@ -12,18 +12,17 @@ get '/' => sub {
 };
 
 get '/feedback' => sub {
-    my $previous_feedback = cookie('feedback');
-    my $feedback = '';
-    if($previous_feedback) {
-        $feedback = service('Encryption')->decrypt($previous_feedback->value);
+    my $previous_feedback = cookie('test');
+    my $feedback          = '';
+    if ($previous_feedback) {
+        $feedback = service('Encryption')->decrypt( $previous_feedback->value );
     }
-    template 'feedback' => {
-        feedback => $feedback,
-    };
+    template 'feedback' => { feedback => $feedback, };
 };
 
 post '/feedback' => sub {
-    cookie 'feedback' => service('Encryption')->encrypt(body_parameters->{feedback});
+    cookie 'test' =>
+      service('Encryption')->encrypt( body_parameters->{feedback} );
     redirect '/feedback';
 };
 
