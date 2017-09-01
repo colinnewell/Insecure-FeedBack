@@ -37,7 +37,7 @@ sub encrypt {
         -padding     => "standard",
     );
     my $encrypted = $cipher->encrypt($text);
-    return encode_base64( $iv . $encrypted );
+    return encode_base64( $iv . $encrypted, '' );
 }
 
 sub decrypt {
