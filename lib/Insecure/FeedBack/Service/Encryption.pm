@@ -5,21 +5,22 @@ use strictures 2;
 use Crypt::CBC;
 use MIME::Base64;
 
-has key => ( is => 'ro', lazy => 1, builder => '_build_key' );
+has key     => ( is => 'ro', lazy => 1, builder => '_build_key' );
 has hex_key => ( is => 'ro', lazy => 1, builder => '_build_hexkey' );
 
 sub _build_key {
     my $self = shift;
+
     # check to see if hex_key is set
-    if(exists $self->{hex_key}) {
+    if ( exists $self->{hex_key} ) {
         return pack 'H*', $self->hex_key;
-    } else {
+    }
+    else {
         return Crypt::CBC->random_bytes(32);
     }
 }
 
-sub _build_hexkey
-{
+sub _build_hexkey {
     my $self = shift;
     return unpack 'H*', $self->key;
 }
@@ -57,7 +58,7 @@ sub decrypt {
 
             # if the padding is corrupt the message probably is,
             # may as well deal with that sooner rather than later
-            die 'Bad padding' if $b eq $r;
+            die 'Invalid padding bytes' if $b eq $r;
             return $r;
         },
     );
