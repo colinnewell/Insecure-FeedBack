@@ -6,9 +6,22 @@ use Crypt::CBC;
 use MIME::Base64;
 
 has key => ( is => 'ro', lazy => 1, builder => '_build_key' );
+has hex_key => ( is => 'ro', lazy => 1, builder => '_build_hexkey' );
 
 sub _build_key {
-    Crypt::CBC->random_bytes(32);
+    my $self = shift;
+    # check to see if hex_key is set
+    if(exists $self->{hex_key}) {
+        return pack 'H*', $self->hex_key;
+    } else {
+        return Crypt::CBC->random_bytes(32);
+    }
+}
+
+sub _build_hexkey
+{
+    my $self = shift;
+    return unpack 'H*', $self->key;
 }
 
 sub encrypt {

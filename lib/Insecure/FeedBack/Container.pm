@@ -12,7 +12,7 @@ my $services = container 'Services' => as {
     service 'Encryption' => (
         class        => 'Insecure::FeedBack::Service::Encryption',
         dependencies => {
-            key => '/Config/key',
+            hex_key => '/Config/key',
         },
     );
 
@@ -29,8 +29,9 @@ Bread::Board::set_root_container($services);
 
 my $config = container 'Config' => as {};
 
+# openssl rand -hex 32
 my %defaults = (
-    key             => 'test',
+    key             => '65db976cb7385de5a2d48d8993d2f94d580a05a6153ebdc37ce267b6da9cef64',
     'passwords.max' => 20,
     'passwords.min' => 10,
 );
