@@ -5,6 +5,9 @@ requires "Crypt::OpenSSL::AES"     => "0";
 requires "Crypt::OpenSSL::AES"     => "0";
 requires "Dancer2"                 => "0.205001";
 requires "Dancer2::Plugin::CSRF"   => "0";
+requires "DBIx::Class"             => "0";
+requires "DBIx::Class::Candy"      => "0";
+requires "DBIx::Class::TimeStamp"  => "0";
 requires "Moo"                     => "0";
 requires "Template::Alloy"         => "0";
 requires "strictures"              => "2";
@@ -18,4 +21,5 @@ on "test" => sub {
     requires "HTTP::Request::Common"      => "0";
     requires "Test2::V0"                  => "0";
     requires "Test::WWW::Mechanize::PSGI" => "0";
+    requires "Test::DBIx::Class"          => "0";
 };
