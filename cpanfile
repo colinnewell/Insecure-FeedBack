@@ -4,6 +4,7 @@ requires "Crypt::GeneratePassword" => "0";
 requires "Crypt::OpenSSL::AES"     => "0";
 requires "Crypt::OpenSSL::AES"     => "0";
 requires "Dancer2"                 => "0.205001";
+requires "Dancer2::Plugin::CSRF"   => "0";
 requires "Moo"                     => "0";
 requires "Template::Alloy"         => "0";
 requires "strictures"              => "2";
