@@ -23,6 +23,9 @@ get '/login' => sub {
 post '/login' => sub {
     if ( _is_valid( params->{user}, params->{password} ) ) {
         my $return_url = params->{return_url};
+        # NOTE: there is a bug here, the plugin
+        # we're using returns full urls not relative
+        # so we will always reject these.
         unless ( $return_url =~ m|^/| ) {
             $return_url = '/';
         }
