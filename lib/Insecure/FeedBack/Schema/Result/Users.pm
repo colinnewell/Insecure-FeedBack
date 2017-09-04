@@ -4,6 +4,7 @@ use DBIx::Class::Candy
   -autotable  => v1,
   -components => [
     qw/
+      EncodedColumn
       InflateColumn::DateTime
       TimeStamp
       /
@@ -27,9 +28,13 @@ column name => {
 };
 
 column password => {
-    data_type   => 'varchar',
-    is_nullable => 1,
-    size        => 255,
+    data_type           => 'varchar',
+    is_nullable         => 1,
+    size                => 255,
+    encode_column       => 1,
+    encode_class        => 'Crypt::Eksblowfish::Bcrypt',
+    encode_args         => { key_nul => 0, cost => 12 },
+    encode_check_method => 'check_password',
 };
 
 column created => {
