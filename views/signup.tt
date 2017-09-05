@@ -1,0 +1,13 @@
+<div id="page">
+    <h1>Sign up</h1>
+    [% IF error %]<p>Error: [% error %]</p>[% END %]
+    <form method="POST">
+        <input type="hidden" name="csrf_token" value="[% csrf_token %]">
+        <label>Email
+        <input type="text" name="user"></label>
+
+        <input type="submit" name="submit" value="Sign up">
+    </form>
+</div>
+
+

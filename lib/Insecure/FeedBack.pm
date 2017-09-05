@@ -13,6 +13,39 @@ get '/' => sub {
     template 'index' => { 'title' => 'Insecure::FeedBack' };
 };
 
+get '/signup' => sub {
+    template 'signup' => { csrf_token => get_csrf_token(), };
+};
+
+post '/signup' => sub {
+    my $email = body_parameters->{user};
+    unless ( $email =~ /\@bigcorp\.com$/ ) {
+        return template 'signup' => {
+            csrf_token => get_csrf_token(),
+            error => 'Only @bigcorp.com addresses can be used for sign up.',
+        };
+    }
+
+    # create the user.
+    my $users    = service('AuthDB')->resultset('Users');
+    my $password = service('Passwords')->generate_password;
+    eval {
+        my $user = $users->create(
+            {
+                email    => $email,
+                password => $password
+            }
+        );
+    };
+    if ( $@ =~ /UNIQUE/ ) {
+
+        # FIXME: send a password reminder email instead.
+    }
+
+    # TODO: send a sign up email with the password
+    template 'signup-sent' => { signup_email => $email, };
+};
+
 get '/login' => sub {
     template 'login' => {
         csrf_token => get_csrf_token(),
@@ -23,6 +56,7 @@ get '/login' => sub {
 post '/login' => sub {
     if ( _is_valid( params->{user}, params->{password} ) ) {
         my $return_url = params->{return_url};
+
         # NOTE: there is a bug here, the plugin
         # we're using returns full urls not relative
         # so we will always reject these.

@@ -15,7 +15,7 @@ primary_column id => {
     is_auto_increment => 1,
 };
 
-column email => {
+unique_column email => {
     data_type   => 'varchar',
     is_nullable => 0,
     size        => 255,
@@ -23,7 +23,7 @@ column email => {
 
 column name => {
     data_type   => 'varchar',
-    is_nullable => 0,
+    is_nullable => 1,
     size        => 255,
 };
 
