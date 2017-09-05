@@ -10,6 +10,11 @@ use lib "$FindBin::Bin/../lib";
 
 use Plack::Builder;
 
+# securely seed rand.
+# make sure we do it per process if in starman.
+# i.e AFTER fork
+srand();
+
 builder {
     Insecure::FeedBack->to_app;
 }

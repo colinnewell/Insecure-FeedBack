@@ -14,7 +14,28 @@ get '/' => sub {
 };
 
 get '/signup' => sub {
-    template 'signup' => { csrf_token => get_csrf_token(), };
+
+    # doing a split test with whether we get more
+    # sign ups when we display the name.
+    my $split_test_cookie = cookie('split_test');
+    my $name_test;
+    if ($split_test_cookie) {
+
+        # only care about the number at the start
+        ($name_test) = $split_test_cookie->value =~ /^(\d)-/;
+    }
+    else {
+        # lets generate one.
+        my $r = rand;
+        $name_test = ( $r * 10 ) % 2;
+
+        # store $r in case we need to debug.
+        cookie 'split_test' => "$name_test-$r";
+    }
+    template 'signup' => {
+        csrf_token => get_csrf_token(),
+        name_test  => $name_test,
+    };
 };
 
 post '/signup' => sub {
@@ -33,6 +54,7 @@ post '/signup' => sub {
         my $user = $users->create(
             {
                 email    => $email,
+                name => body_parameters->{name} || undef,
                 password => $password
             }
         );
