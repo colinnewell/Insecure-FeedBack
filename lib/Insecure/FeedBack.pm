@@ -116,7 +116,10 @@ get '/feedback' => needs login => sub {
     my $previous_feedback = cookie('test');
     my $feedback          = '';
     if ($previous_feedback) {
-        $feedback = service('Encryption')->decrypt( $previous_feedback->value );
+        my $decrypted = service('Encryption')->decrypt( $previous_feedback->value );
+        my $user;
+        ($user, $feedback) = split('\|', $decrypted);
+        $feedback = '' unless $user eq session('user');
     }
     template 'feedback' => {
         csrf_token => get_csrf_token(),
@@ -131,7 +134,7 @@ post '/feedback' => needs login => sub {
     }
 
     cookie 'test' =>
-      service('Encryption')->encrypt( body_parameters->{feedback} );
+      service('Encryption')->encrypt( session('user') . '|' . body_parameters->{feedback} );
     redirect '/feedback';
 };
 
