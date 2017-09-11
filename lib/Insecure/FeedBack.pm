@@ -54,7 +54,7 @@ post '/signup' => sub {
         my $user = $users->create(
             {
                 email    => $email,
-                name => body_parameters->{name} || undef,
+                name => body_parameters->{name} || 'Missing',
                 password => $password
             }
         );
