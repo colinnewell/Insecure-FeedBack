@@ -1,5 +1,7 @@
-<div id="page">
+<div class="container">
     <h1>Sign up</h1>
+</div>
+<div class="container">
     [% IF error %]<p>Error: [% error %]</p>[% END %]
     <form method="POST">
         <input type="hidden" name="csrf_token" value="[% csrf_token %]">
