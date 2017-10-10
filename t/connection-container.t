@@ -1,11 +1,16 @@
 use Test2::V0;
+BEGIN { $ENV{INSECURE_FEEDBACK_AUTHDB} = 'dbi:SQLite:dbname=:memory:'; }
 use Insecure::FeedBack::Container qw/service/;
 
-# FIXME: this is a bit shady.
-# messing with a test db that could be changed in dev.
-# could do with a better solution, perhaps I should create
-# the db and make use of the env var to load it?
 my $db = service('AuthDB');
-is $db->resultset('Users')->count, 1;
+$db->deploy;
+my $users = $db->resultset('Users');
+ok $users->create(
+    {
+        email => 'test@blah.com',
+        name  => 'test',
+    }
+);
+is $users->count, 1;
 
 done_testing;
