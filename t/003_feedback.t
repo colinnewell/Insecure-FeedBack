@@ -25,9 +25,9 @@ subtest 'Bad login attempts' => sub {
                 user     => 'test@example.org',
                 password => 'badpass',
             }
-        }
-      ),
-      'Bad password';
+        },
+        'Bad password'
+    );
     $mech->content_like(qr'Error');
 
     $mech->submit_form_ok(
@@ -36,9 +36,9 @@ subtest 'Bad login attempts' => sub {
                 user     => 'bad@example.org',
                 password => 'badpass',
             }
-        }
-      ),
-      'Bad user';
+        },
+        'Bad user'
+    );
     $mech->content_like(qr'Error');
 
 };
@@ -50,9 +50,9 @@ subtest 'Log in' => sub {
                 user     => 'test@example.org',
                 password => 'hash',
             }
-        }
-      ),
-      'Login';
+        },
+        'Login'
+    );
     $mech->content_unlike(qr'Error');
 };
 
