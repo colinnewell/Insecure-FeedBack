@@ -30,7 +30,7 @@ get '/signup' => sub {
         $name_test = ( $r * 10 ) % 2;
 
         # store $r in case we need to debug.
-        cookie 'split_test' => "$name_test-$r";
+        cookie 'split_test' => "$name_test-$r", http_only => 1;
     }
     template 'signup' => {
         csrf_token => get_csrf_token(),
@@ -54,7 +54,7 @@ post '/signup' => sub {
         my $user = $users->create(
             {
                 email    => $email,
-                name => body_parameters->{name} || 'Missing',
+                name     => body_parameters->{name} || 'Missing',
                 password => $password
             }
         );
@@ -116,9 +116,10 @@ get '/feedback' => needs login => sub {
     my $previous_feedback = cookie('test');
     my $feedback          = '';
     if ($previous_feedback) {
-        my $decrypted = service('Encryption')->decrypt( $previous_feedback->value );
+        my $decrypted =
+          service('Encryption')->decrypt( $previous_feedback->value );
         my $user;
-        ($user, $feedback) = split('\|', $decrypted);
+        ( $user, $feedback ) = split( '\|', $decrypted );
         $feedback = '' unless $user eq session('user');
     }
     template 'feedback' => {
@@ -133,8 +134,10 @@ post '/feedback' => needs login => sub {
         redirect '/?error=invalid_csrf_token';
     }
 
-    cookie 'test' =>
-      service('Encryption')->encrypt( session('user') . '|' . body_parameters->{feedback} );
+    cookie
+      'test' => service('Encryption')
+      ->encrypt( session('user') . '|' . body_parameters->{feedback} ),
+      http_only => 1;
     redirect '/feedback';
 };
 
