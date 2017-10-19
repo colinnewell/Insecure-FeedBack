@@ -9,6 +9,14 @@ use Insecure::FeedBack::Container 'service';
 
 our $VERSION = '0.1';
 
+hook after => sub {
+    # security headers, should be moved to nginx when
+    # deploying.
+    header 'X-Frame-Options' => 'DENY';
+    header 'X-XSS-Protection' => '1';
+    header 'X-Content-Type-Options' => 'nosniff';
+};
+
 get '/' => sub {
     template 'index' => { 'title' => 'Insecure::FeedBack' };
 };
