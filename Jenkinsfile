@@ -1,4 +1,4 @@
-dockerNode(image: "perl-5.24") {
+dockerNode(image: "test-perl:5.26") {
    stage('Preparation') {
 	  checkout scm
    }
