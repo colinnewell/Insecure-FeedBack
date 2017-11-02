@@ -1,4 +1,4 @@
-dockerNode(image: "test-perl:5.26") {
+dockerNode(image: "perl-jenkins-slave") {
    stage('Preparation') {
 	  checkout scm
    }
